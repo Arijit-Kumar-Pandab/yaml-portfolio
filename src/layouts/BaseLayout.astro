@@ -1,0 +1,342 @@
+---
+import '../assets/styles.css';
+
+interface Props {
+  title?: string;
+}
+
+const { title = 'Portfolio' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Professional portfolio showcasing projects and skills" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} — Portfolio</title>
+    <script>
+      // Dark mode initialization
+      const theme = localStorage.getItem('theme') || 'light';
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script>
+  </head>
+  <body>
+    <div class="site-container">
+      <header class="site-header">
+        <nav class="navbar">
+          <a href="#" class="navbar-brand">
+            <span class="logo-icon">💻</span>
+            <span class="logo-text">Portfolio</span>
+          </a>
+          <ul class="nav-menu">
+            <li><a href="#hero" class="nav-link">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <span class="theme-icon">🌙</span>
+          </button>
+        </nav>
+      </header>
+
+      <main class="site-main">
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-content">
+          <p>&copy; 2025 Portfolio. All rights reserved.</p>
+          <p>Built with <a href="https://astro.build" target="_blank">Astro</a> & ❤️</p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const themeToggle = document.getElementById('themeToggle');
+      const html = document.documentElement;
+
+      themeToggle?.addEventListener('click', () => {
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        const newTheme = isDark ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+      });
+
+      function updateThemeIcon(theme: string) {
+        const icon = themeToggle?.querySelector('.theme-icon');
+        if (icon) {
+          icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+      }
+
+      // Set initial icon
+      const currentTheme = html.getAttribute('data-theme') || 'light';
+      updateThemeIcon(currentTheme);
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    /* Light mode colors */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f7fafc;
+    --bg-tertiary: #edf2f7;
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --border-color: #e2e8f0;
+    --accent-primary: #667eea;
+    --accent-secondary: #764ba2;
+    --accent-light: #f0f4ff;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  html[data-theme='dark'] {
+    /* Dark mode colors */
+    --bg-primary: #0f172a;
+    --bg-secondary: #1a2f4f;
+    --bg-tertiary: #243550;
+    --text-primary: #e6eef8;
+    --text-secondary: #cbd5e0;
+    --text-muted: #a0aec0;
+    --border-color: #2d3748;
+    --accent-primary: #667eea;
+    --accent-secondary: #764ba2;
+    --accent-light: #1a2d52;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+      'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    transition: var(--transition);
+  }
+
+  .site-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: var(--bg-primary);
+    margin: 0;
+  }
+
+  .site-header {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    background: rgba(var(--bg-secondary), 0.95);
+    box-shadow: var(--shadow);
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    height: 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .navbar-brand:hover {
+    color: var(--accent-primary);
+    transform: scale(1.05);
+  }
+
+  .logo-icon {
+    font-size: 1.5rem;
+  }
+
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--accent-primary);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .theme-toggle {
+    background: none;
+    border: 2px solid var(--border-color);
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+
+  .theme-toggle:hover {
+    background: var(--accent-light);
+    border-color: var(--accent-primary);
+    transform: scale(1.1) rotate(20deg);
+  }
+
+  .site-main {
+    flex: 1;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .site-footer {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 3rem 2rem;
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .footer-content p {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+  }
+
+  .footer-content a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+  }
+
+  .footer-content a:hover {
+    color: var(--accent-secondary);
+    text-decoration: underline;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .navbar {
+      padding: 0 1.5rem;
+    }
+
+    .nav-menu {
+      gap: 1.5rem;
+    }
+
+    .site-main {
+      padding: 3rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 0 1rem;
+    }
+
+    .nav-menu {
+      display: none;
+    }
+
+    .site-main {
+      padding: 2rem 1rem;
+    }
+
+    .logo-text {
+      display: none;
+    }
+
+    .theme-toggle {
+      width: 36px;
+      height: 36px;
+    }
+  }
+</style>
+

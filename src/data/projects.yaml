@@ -1,0 +1,39 @@
+- title: E-Commerce Platform
+  description: >
+    Full-stack e-commerce application with product catalog, shopping cart,
+    secure payment processing, and admin dashboard for inventory management.
+  tech: [React, Node.js, PostgreSQL, Stripe]
+  link: https://github.com/arijit/ecommerce-platform
+  highlight: true
+
+- title: Real-Time Chat Application
+  description: >
+    Collaborative chat application with WebSocket support, user authentication,
+    message history, and typing indicators. Deployed on AWS with Docker.
+  tech: [Vue.js, Node.js, Socket.io, MongoDB, Docker]
+  link: https://github.com/arijit/chat-app
+  highlight: true
+
+- title: Analytics Dashboard
+  description: >
+    Interactive data visualization dashboard pulling metrics from multiple sources.
+    Features real-time updates, custom date ranges, and exportable reports.
+  tech: [React, TypeScript, D3.js, GraphQL]
+  link: https://github.com/arijit/analytics-dashboard
+  highlight: false
+
+- title: Portfolio Website
+  description: >
+    Personal portfolio built with Astro showcasing projects, skills, and blog.
+    Fully responsive, optimized for performance, and deployed via GitHub Pages.
+  tech: [Astro, TypeScript, Tailwind CSS]
+  link: https://github.com/arijit/portfolio
+  highlight: false
+
+- title: Task Management CLI Tool
+  description: >
+    Command-line task manager with local SQLite storage, filtering, priorities,
+    and recurring task support. Published to NPM.
+  tech: [Node.js, SQLite, Commander.js]
+  link: https://github.com/arijit/task-cli
+  highlight: false

@@ -1,0 +1,36 @@
+- title: Frontend
+  items:
+    - JavaScript (ES6+)
+    - TypeScript
+    - React
+    - Vue.js
+    - Astro
+    - HTML5 & CSS3
+    - Tailwind CSS
+    - Web Performance
+
+- title: Backend
+  items:
+    - Node.js
+    - Express.js
+    - Python
+    - PostgreSQL
+    - MongoDB
+    - RESTful APIs
+
+- title: Tools & DevOps
+  items:
+    - Git & GitHub
+    - Docker
+    - CI/CD Pipelines
+    - AWS
+    - Webpack & Vite
+    - NPM & package management
+
+- title: Soft Skills
+  items:
+    - Problem Solving
+    - Team Collaboration
+    - Technical Documentation
+    - Mentoring
+    - Agile Methodology

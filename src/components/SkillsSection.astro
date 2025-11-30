@@ -1,0 +1,185 @@
+---
+import yaml from 'js-yaml';
+import skillsRaw from '../data/skills.yaml?raw';
+
+const skills = yaml.load(skillsRaw) as any[];
+---
+
+<section id="skills" class="section skills-section">
+  <div class="section-header">
+    <h2 class="section-title">Skills</h2>
+    <div class="section-underline"></div>
+  </div>
+  <div class="skills-grid">
+    {skills.map((skillGroup, index) => (
+      <article class="skill-card" style={`animation-delay: ${index * 0.1}s`}>
+        <div class="skill-icon">🎯</div>
+        <h3 class="skill-category">{skillGroup.title}</h3>
+        <ul class="skill-list">
+          {skillGroup.items.map((item: string) => (
+            <li class="skill-item">{item}</li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .section {
+    margin-bottom: 5rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+  }
+
+  .section-underline {
+    width: 120px;
+    height: 5px;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 3px;
+    margin: 0 auto;
+    animation: expandWidth 0.6s ease;
+  }
+
+  @keyframes expandWidth {
+    from {
+      width: 0;
+    }
+    to {
+      width: 120px;
+    }
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+  }
+
+  .skill-card {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideUp 0.6s ease both;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .skill-card:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.15);
+    transform: translateY(-8px);
+    background: linear-gradient(135deg, var(--bg-secondary), var(--accent-light));
+  }
+
+  .skill-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-category {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.3px;
+  }
+
+  .skill-list {
+    list-style: none;
+  }
+
+  .skill-item {
+    padding: 0.6rem 0;
+    color: var(--text-secondary);
+    font-weight: 500;
+    position: relative;
+    padding-left: 1.75rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+  }
+
+  .skill-item:hover {
+    color: var(--accent-primary);
+    transform: translateX(4px);
+  }
+
+  .skill-item::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent-primary);
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 1024px) {
+    .section {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-card {
+      padding: 1.75rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+      font-size: 1.85rem;
+    }
+
+    .skills-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      padding: 1.5rem;
+    }
+
+    .skill-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-category {
+      font-size: 1.1rem;
+    }
+  }
+</style>
+

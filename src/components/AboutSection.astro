@@ -1,0 +1,130 @@
+---
+import yaml from 'js-yaml';
+import aboutRaw from '../data/about.yaml?raw';
+
+const about = yaml.load(aboutRaw) as any;
+---
+
+<section id="about" class="section about-section">
+  <div class="section-header">
+    <h2 class="section-title">About</h2>
+    <div class="section-underline"></div>
+  </div>
+  <div class="section-content">
+    <div class="about-text-wrapper">
+      <p class="about-text">{about.summary}</p>
+      <p class="about-location">📍 <strong>{about.location}</strong></p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    margin-bottom: 5rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+  }
+
+  .section-underline {
+    width: 120px;
+    height: 5px;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 3px;
+    margin: 0 auto;
+    animation: expandWidth 0.6s ease;
+  }
+
+  @keyframes expandWidth {
+    from {
+      width: 0;
+    }
+    to {
+      width: 120px;
+    }
+  }
+
+  .section-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .about-text-wrapper {
+    background: var(--bg-secondary);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .about-text-wrapper:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .about-text {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.3px;
+  }
+
+  .about-location {
+    font-size: 1.05rem;
+    color: var(--accent-primary);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    .section {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+    }
+
+    .about-text-wrapper {
+      padding: 2rem;
+    }
+
+    .about-text {
+      font-size: 1.05rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+      font-size: 1.85rem;
+    }
+
+    .about-text-wrapper {
+      padding: 1.5rem;
+    }
+
+    .about-text {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+</style>
+

@@ -1,0 +1,278 @@
+---
+import yaml from 'js-yaml';
+import projectsRaw from '../data/projects.yaml?raw';
+
+const projects = yaml.load(projectsRaw) as any[];
+---
+
+<section id="projects" class="section projects-section">
+  <div class="section-header">
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="section-underline"></div>
+  </div>
+  <div class="projects-grid">
+    {projects.map((project, index) => (
+      <article class={`project-card ${project.highlight ? 'highlight' : ''}`} style={`animation-delay: ${index * 0.1}s`}>
+        {project.highlight && <div class="featured-badge">Featured</div>}
+        <div class="project-header">
+          <h3 class="project-title">{project.title}</h3>
+        </div>
+        <p class="project-description">{project.description}</p>
+        <div class="project-tech">
+          {project.tech?.map((tech: string) => (
+            <span class="tech-badge">{tech}</span>
+          ))}
+        </div>
+        {project.link && (
+          <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-link">
+            View Project 
+            <span class="arrow">→</span>
+          </a>
+        )}
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .section {
+    margin-bottom: 5rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+  }
+
+  .section-underline {
+    width: 120px;
+    height: 5px;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 3px;
+    margin: 0 auto;
+    animation: expandWidth 0.6s ease;
+  }
+
+  @keyframes expandWidth {
+    from {
+      width: 0;
+    }
+    to {
+      width: 120px;
+    }
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+  }
+
+  .project-card {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.6s ease both;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .project-card:hover::before {
+    left: 100%;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.15);
+    transform: translateY(-8px);
+  }
+
+  .project-card.highlight {
+    border-color: var(--accent-primary);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+    background: linear-gradient(135deg, var(--bg-secondary), var(--accent-light));
+  }
+
+  .project-card.highlight:hover {
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.25);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .project-header {
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .project-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.3px;
+  }
+
+  .project-description {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    font-size: 0.95rem;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-badge {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent-primary);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid var(--accent-primary);
+    transition: all 0.2s ease;
+  }
+
+  .tech-badge:hover {
+    background: var(--accent-primary);
+    color: white;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    margin-top: auto;
+    width: fit-content;
+  }
+
+  .project-link:hover {
+    color: var(--accent-secondary);
+    gap: 1rem;
+  }
+
+  .arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  .project-link:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 1024px) {
+    .section {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+    }
+
+    .projects-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      padding: 1.75rem;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+      font-size: 1.85rem;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      padding: 1.5rem;
+    }
+
+    .project-title {
+      font-size: 1.1rem;
+    }
+
+    .project-description {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .featured-badge {
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.65rem;
+    }
+  }
+</style>
+
