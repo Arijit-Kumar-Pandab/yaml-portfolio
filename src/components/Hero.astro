@@ -32,11 +32,7 @@ const about = yaml.load(aboutRaw) as any;
           LinkedIn
         </a>
       )}
-      {about.socials?.twitter && (
-        <a href={about.socials.twitter} target="_blank" rel="noopener noreferrer" class="social-link secondary">
-          Twitter
-        </a>
-      )}
+      
       {about.socials?.email && (
         <a href={`mailto:${about.socials.email}`} class="social-link secondary">
           Email
