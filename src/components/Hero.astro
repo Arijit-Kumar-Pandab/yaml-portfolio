@@ -95,7 +95,7 @@ const about = yaml.load(aboutRaw) as any;
   .hero-summary,
   .hero-socials {
     animation-play-state: paused;
-    opacity: 0;
+    opacity: 0 !important;
   }
 
   /* When avatar loaded, reveal avatar first then run text animations */
@@ -109,6 +109,7 @@ const about = yaml.load(aboutRaw) as any;
   .hero.is-loaded .hero-summary,
   .hero.is-loaded .hero-socials {
     animation-play-state: running;
+    opacity: 1 !important;
   }
 
   .hero-content {
