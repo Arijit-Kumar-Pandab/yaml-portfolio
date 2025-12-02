@@ -278,3 +278,43 @@ const about = yaml.load(aboutRaw) as any;
   }
 </style>
 
+<script>
+  /* @ts-nocheck */
+  // Add .is-loaded to hero when avatar finishes loading so animations run in sequence
+  (function () {
+    try {
+      const hero = document.getElementById('hero');
+      if (!hero) return;
+      const reveal = () => hero.classList.add('is-loaded');
+      const img = hero.querySelector('.hero-avatar');
+
+      if (img) {
+        // Attach handlers to reveal when the avatar loads or errors
+        img.addEventListener('load', () => setTimeout(reveal, 120));
+        img.addEventListener('error', () => reveal());
+
+        // Create a test Image to reliably detect load even if the original is cached
+        try {
+          const src = img.getAttribute('src');
+          if (src) {
+            const probe = new Image();
+            probe.onload = () => setTimeout(reveal, 120);
+            probe.onerror = () => {};
+            probe.src = src;
+          }
+        } catch (e) {
+          // ignore
+        }
+
+        // safety fallback
+        setTimeout(() => { if (!hero.classList.contains('is-loaded')) reveal(); }, 3000);
+      } else {
+        reveal();
+      }
+    } catch (e) {
+      // graceful degrade
+      console.error(e);
+    }
+  })();
+</script>
+
