@@ -3,6 +3,7 @@ import yaml from 'js-yaml';
 import projectsRaw from '../data/projects.yaml?raw';
 
 const projects = yaml.load(projectsRaw) as any[];
+const featured = projects.filter((p) => p.highlight);
 ---
 
 <section id="projects" class="section projects-section">
@@ -11,9 +12,9 @@ const projects = yaml.load(projectsRaw) as any[];
     <div class="section-underline"></div>
   </div>
   <div class="projects-grid">
-    {projects.map((project, index) => (
-      <article class={`project-card ${project.highlight ? 'highlight' : ''}`} style={`animation-delay: ${index * 0.1}s`}>
-        {project.highlight && <div class="featured-badge">Featured</div>}
+    {featured.map((project, index) => (
+      <article class={`project-card highlight`} style={`animation-delay: ${index * 0.1}s`}>
+        <div class="featured-badge">Featured</div>
         <div class="project-header">
           <h3 class="project-title">{project.title}</h3>
         </div>
