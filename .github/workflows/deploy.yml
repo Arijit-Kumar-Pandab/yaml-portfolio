@@ -4,15 +4,17 @@ on:
   push:
     branches: [ main ]
 
+# Recommended: put permissions at the workflow level
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
 
     steps:
       - name: Checkout
@@ -31,12 +33,11 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload artifact for deployment
         uses: actions/upload-pages-artifact@v3
         with:
+          # Make sure this matches your build output folder
           path: ./dist
 
       - name: Deploy to GitHub Pages
