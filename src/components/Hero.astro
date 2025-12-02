@@ -7,6 +7,15 @@ const about = yaml.load(aboutRaw) as any;
 
 <section id="hero" class="hero">
   <div class="hero-content">
+    <div class="hero-avatar-wrap">
+      <img
+        class="hero-avatar"
+        src="https://github.com/Arijit-Kumar-Pandab.png?s=460"
+        alt={`${about.name} — avatar`}
+        loading="lazy"
+      />
+    </div>
+
     <div class="hero-text">
       <h1 class="hero-title">{about.name}</h1>
       <p class="hero-role">{about.role}</p>
@@ -62,6 +71,48 @@ const about = yaml.load(aboutRaw) as any;
     background: radial-gradient(circle, rgba(102, 126, 234, 0.1), transparent);
     border-radius: 50%;
     pointer-events: none;
+  }
+
+  /* Avatar + reveal sequencing */
+  .hero-avatar-wrap {
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 999px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+    transition: opacity 1.2s cubic-bezier(.2,.9,.2,1), transform 1.2s cubic-bezier(.2,.9,.2,1);
+    border: 4px solid var(--bg-secondary);
+    box-shadow: 0 12px 30px rgba(16,24,40,0.08);
+  }
+
+  /* Pause text animations until avatar loads */
+  .hero-title,
+  .hero-role,
+  .hero-summary,
+  .hero-socials {
+    animation-play-state: paused;
+    opacity: 0;
+  }
+
+  /* When avatar loaded, reveal avatar first then run text animations */
+  .hero.is-loaded .hero-avatar {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero.is-loaded .hero-title,
+  .hero.is-loaded .hero-role,
+  .hero.is-loaded .hero-summary,
+  .hero.is-loaded .hero-socials {
+    animation-play-state: running;
   }
 
   .hero-content {
