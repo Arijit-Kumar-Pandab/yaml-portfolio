@@ -3,7 +3,7 @@
     Full-stack e-commerce application with product catalog, shopping cart,
     secure payment processing, and admin dashboard for inventory management.
   tech: [React, Node.js, PostgreSQL, Stripe]
-  link: https://github.com/Arijit-Kumar-Pandab/ecommerce-platform
+  link: https://github.com/Arijit-Kumar-Pandab/E_Commerce_Application
   highlight: true
 
 - title: Real-Time Chat Application
